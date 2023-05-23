@@ -1,0 +1,183 @@
+#Roll No: C33377
+#Name: Jay Pawar
+#Assignment No: 6
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+
+df = pd.read_csv('Iris.csv')
+# print(df)
+#    Id  SepalLengthCm  SepalWidthCm  PetalLengthCm  PetalWidthCm         Species
+# 0      1            5.1           3.5            1.4           0.2     Iris-setosa
+# 1      2            4.9           3.0            1.4           0.2     Iris-setosa
+# 2      3            4.7           3.2            1.3           0.2     Iris-setosa
+# 3      4            4.6           3.1            1.5           0.2     Iris-setosa
+# 4      5            5.0           3.6            1.4           0.2     Iris-setosa
+# ..   ...            ...           ...            ...           ...             ...
+# 145  146            6.7           3.0            5.2           2.3  Iris-virginica
+# 146  147            6.3           2.5            5.0           1.9  Iris-virginica
+# 147  148            6.5           3.0            5.2           2.0  Iris-virginica
+# 148  149            6.2           3.4            5.4           2.3  Iris-virginica
+# 149  150            5.9           3.0            5.1           1.8  Iris-virginica
+
+# [150 rows x 6 columns]
+
+# print(df.dtypes)
+# Id                 int64
+# SepalLengthCm    float64
+# SepalWidthCm     float64
+# PetalLengthCm    float64
+# PetalWidthCm     float64
+# Species           object
+# dtype: object
+
+df['Species'] = df['Species'].astype('category')
+# print(df['Species'])
+# 0         Iris-setosa
+# 1         Iris-setosa
+# 2         Iris-setosa
+# 3         Iris-setosa
+# 4         Iris-setosa
+#             ...
+# 145    Iris-virginica
+# 146    Iris-virginica
+# 147    Iris-virginica
+# 148    Iris-virginica
+# 149    Iris-virginica
+# Name: Species, Length: 150, dtype: category
+# Categories (3, object): ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+
+df['Species'] = df['Species'].cat.codes
+# print(df) -> Refer to original dataset printed originally to understand what happened.
+#      Id  SepalLengthCm  SepalWidthCm  PetalLengthCm  PetalWidthCm  Species
+# 0      1            5.1           3.5            1.4           0.2        0
+# 1      2            4.9           3.0            1.4           0.2        0
+# 2      3            4.7           3.2            1.3           0.2        0
+# 3      4            4.6           3.1            1.5           0.2        0
+# 4      5            5.0           3.6            1.4           0.2        0
+# ..   ...            ...           ...            ...           ...      ...
+# 145  146            6.7           3.0            5.2           2.3        2
+# 146  147            6.3           2.5            5.0           1.9        2
+# 147  148            6.5           3.0            5.2           2.0        2
+# 148  149            6.2           3.4            5.4           2.3        2
+# 149  150            5.9           3.0            5.1           1.8        2
+
+# [150 rows x 6 columns]
+
+# print(df.isnull().sum()) -> Not a single null value in any column.
+# Id               0
+# SepalLengthCm    0
+# SepalWidthCm     0
+# PetalLengthCm    0
+# PetalWidthCm     0
+# Species          0
+# dtype: int64
+
+def DetectOutliers(df, var):
+  Q1 = df[var].quantile(0.25)
+  Q3 = df[var].quantile(0.75)
+  IQR = Q3 - Q1
+  high, low = Q3 + 1.5 * IQR, Q1 - 1.5 * IQR
+  print("Highest allowed in " , var + " " , high)
+  print("Lowest allowed in " , var + " " , low)
+  count = df[(df[var]>high) | (df[var]<low)] [var].count()
+  print("Total outliers in " , var , " are " , count)
+
+# DetectOutliers(df, 'SepalLengthCm') -> Highest allowed in  SepalLengthCm  8.350000000000001 
+# Lowest allowed in  SepalLengthCm  3.1499999999999986 
+# Total outliers in  SepalLengthCm  are  0
+
+# DetectOutliers(df, 'SepalWidthCm') -> Highest allowed in  SepalWidthCm  4.05 
+# Lowest allowed in  SepalWidthCm  2.05 
+# Total outliers in  SepalWidthCm  are  4
+
+# DetectOutliers(df, 'PetalLengthCm') -> Highest allowed in  PetalLengthCm  10.349999999999998
+# Lowest allowed in  PetalLengthCm  -3.649999999999999
+# Total outliers in  PetalLengthCm  are  0
+
+# DetectOutliers(df, 'PetalWidthCm') -> Highest allowed in  PetalWidthCm  4.05
+# Lowest allowed in  PetalWidthCm  -1.95
+# Total outliers in  PetalWidthCm  are  0
+
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+# sns.boxplot(df['SepalWidthCm'])
+# plt.show() -> Image
+
+def OutlierRemoval(df, var):
+  Q1 = df[var].quantile(0.25)
+  Q3 = df[var].quantile(0.75)
+  IQR = Q3 - Q1
+  high, low = Q3 + 1.5 * IQR, Q1 - 1.5 * IQR
+  print("The Highest in variable: ", var, high)
+  print("The Lowest in variable: ", var, low)
+  count = df[(df[var] > high) | (df[var] < low)][var].count()
+  print("Total outliers in: ", var, ":", count)
+  df = df[((df[var] >= low) & (df[var] <= high))]
+  return df
+# print(df.shape)
+# (150, 6)
+
+# df = OutlierRemoval(df, 'SepalWidthCm')
+# print(df.shape)
+# The Highest in variable:  SepalWidthCm 4.05
+# The Lowest in variable:  SepalWidthCm 2.05 
+# Total outliers in:  SepalWidthCm : 4
+# (146, 6)
+
+# sns.heatmap(df.corr(), annot=True)
+# plt.show() -> Image
+
+X = df[['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']]
+y = df['Species']
+# from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=100)
+
+# Scale the data using StandardScaler
+# from sklearn.preprocessing import StandardScaler
+sc_X = StandardScaler()
+X_train = sc_X.fit_transform(X_train)
+X_test = sc_X.fit_transform(X_test)
+
+# Train a Gaussian Naive Bayes classifier
+# from sklearn.naive_bayes import GaussianNB
+classfier = GaussianNB()
+classfier.fit(X_train, y_train)
+
+# Make predictions on the test data
+y_pred = classfier.predict(X_test)
+
+# from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(y_test, y_pred)
+# print("Accuracy: ", accuracy)
+# Accuracy:  0.9
+
+# from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test, y_pred)
+# sns.heatmap(cm, annot=True)
+# plt.show()
+
+# from sklearn.metrics import classification_report
+# report = classification_report(y_test, y_pred)
+# print(report)
+#        precision    recall  f1-score   support
+
+#            0       1.00      1.00      1.00        11
+#            1       0.67      1.00      0.80         6
+#            2       1.00      0.77      0.87        13
+
+#     accuracy                           0.90        30
+#    macro avg       0.89      0.92      0.89        30
+# weighted avg       0.93      0.90      0.90        30
+
+score = classfier.score(X_test, y_test)
+# print(score)
+# 0.9

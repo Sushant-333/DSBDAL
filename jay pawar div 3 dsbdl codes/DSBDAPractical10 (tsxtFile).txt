@@ -1,0 +1,90 @@
+#Roll No: C33377
+#Name: Jay Pawar
+#Assignment No: 10
+
+import pandas as pd
+df = pd.read_csv("Iris.csv")
+
+# print(df.columns)
+# Index(['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm',
+#        'Species'],
+#       dtype='object')
+
+# print(df.dtypes)
+# Id                 int64
+# SepalLengthCm    float64
+# SepalWidthCm     float64
+# PetalLengthCm    float64
+# PetalWidthCm     float64
+# Species           object
+# dtype: object
+
+# print(df.info())
+# RangeIndex: 150 entries, 0 to 149
+# Data columns (total 6 columns):
+#  #   Column         Non-Null Count  Dtype  
+# ---  ------         --------------  -----  
+#  0   Id             150 non-null    int64  
+#  1   SepalLengthCm  150 non-null    float64
+#  2   SepalWidthCm   150 non-null    float64
+#  3   PetalLengthCm  150 non-null    float64
+#  4   PetalWidthCm   150 non-null    float64
+#  5   Species        150 non-null    object 
+# dtypes: float64(4), int64(1), object(1)    
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# sns.histplot(df['SepalLengthCm'])
+# plt.title("Distribution of SepalLength")
+# plt.xlabel("SepalLength")
+# plt.ylabel("Frequency")
+# plt.show()
+
+# sns.histplot(df['SepalWidthCm'])
+# plt.title("Distribution of SepalWidth")
+# plt.xlabel("SepalWidth")
+# plt.ylabel("Frequency")
+# plt.show()
+
+# sns.histplot(df['PetalLengthCm'])
+# plt.title("Distribution of PetalLength")
+# plt.xlabel("PetalLength")
+# plt.ylabel("Frequency")
+# plt.show()
+
+# sns.histplot(df['PetalWidthCm'])
+# plt.title("Distribution of PetalWidth")
+# plt.xlabel("PetalWidth")
+# plt.ylabel("Frequency")
+# plt.show()
+
+# sns.histplot(df['Species'])
+# plt.title("Distribution of Species")
+# plt.xlabel("Species")
+# plt.ylabel("Frequency")
+# plt.show()
+
+# sns.boxplot(x = df['Species'], y = df['SepalLengthCm'], data = df, orient='v')
+# plt.title("Boxplot for SepalLength")
+# plt.xlabel("Species")
+# plt.ylabel("SepalLength Values of min, max, Q1, Q2, Q3")
+# plt.show()
+
+# sns.boxplot(x = df['Species'], y = df['SepalWidthCm'], data = df, orient='v')
+# plt.title("Boxplot for SepalWidth")
+# plt.xlabel("Species")
+# plt.ylabel("SepalWidth Values of min, max, Q1, Q2, Q3")
+# plt.show()
+
+# sns.boxplot(x = df['Species'], y = df['PetalLengthCm'], data = df, orient='v')
+# plt.title("Boxplot for PetalLength")
+# plt.xlabel("Species")
+# plt.ylabel("PetalLength Values of min, max, Q1, Q2, Q3")
+# plt.show()
+
+# sns.boxplot(x = df['Species'], y = df['PetalWidthCm'], data = df, orient='v')
+# plt.title("Boxplot for PetalWidth")
+# plt.xlabel("Species")
+# plt.ylabel("PetalWidth Values of min, max, Q1, Q2, Q3")
+# plt.show()

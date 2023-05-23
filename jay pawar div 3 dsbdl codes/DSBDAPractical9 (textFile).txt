@@ -1,0 +1,64 @@
+#Roll No: C33377
+#Name: Jay Pawar
+#Assignment No: 9
+
+import pandas as pd
+df = pd.read_csv('tested.csv')
+# print(df['Age'])
+
+median_age = df['Age'].median()
+df['Age'].fillna(median_age, inplace=True)
+# print(df['Age'])
+
+# Using pandas library
+# import matplotlib.pyplot as plt
+# df.boxplot(column='Age')
+# plt.title("Boxplot on column Age")
+# plt.xlabel("Age")
+# plt.ylabel("Value")
+# plt.show()
+
+# Using matplotlib library
+# import matplotlib.pyplot as plt
+# plt.boxplot(df['Age'])
+# plt.title("Boxplot on column Age")
+# plt.xlabel("Age")
+# plt.ylabel("Value")
+# plt.show()
+
+# Using seaborn library
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+# sns.boxplot(x=df['Age'])
+# plt.title("Boxplot on column Age")
+# plt.xlabel("Age")
+# plt.ylabel("Value")
+# plt.show()
+
+# Using pandas library (Age wrt Sex)
+# import matplotlib.pyplot as plt
+# df.boxplot(column='Age', by="Sex")
+# plt.title("Boxplot on column Age")
+# plt.xlabel("Sex")
+# plt.ylabel("Age")
+# plt.show()
+
+# Using seaborn library (Age wrt Sex)
+# import seaborn as sns 
+# import matplotlib.pyplot as plt
+# sns.boxplot(x = 'Sex', y = 'Age', data = df)
+# plt.title('Boxplot of Age by Gender')
+# plt.xlabel('Gender')
+# plt.ylabel('Age')
+# plt.show()
+
+# Using seaborn library (Age wrt Sex with survived as hue)
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+# sns.boxplot(x = 'Sex', y = 'Age', hue = 'Survived', data = df)
+# plt.title('Age distribution by gender and survival')
+# plt.xlabel('Gender')
+# plt.ylabel('Age')
+# plt.xticks([0,1], ['Female', 'Male'])
+# plt.legend(title='Survived', loc='upper right')
+# plt.show()

@@ -1,0 +1,71 @@
+#Roll No: C33377
+#Name: Jay Pawar
+#Assignment No: 8
+
+import pandas as pd
+df = pd.read_csv("tested.csv")
+# print(df)
+#      PassengerId  Survived  Pclass  ...      Fare Cabin  Embarked
+# 0            892         0       3  ...    7.8292   NaN         Q
+# 1            893         1       3  ...    7.0000   NaN         S
+# 2            894         0       2  ...    9.6875   NaN         Q
+# 3            895         0       3  ...    8.6625   NaN         S
+# 4            896         1       3  ...   12.2875   NaN         S
+# ..           ...       ...     ...  ...       ...   ...       ...
+# 413         1305         0       3  ...    8.0500   NaN         S
+# 414         1306         1       1  ...  108.9000  C105         C
+# 415         1307         0       3  ...    7.2500   NaN         S
+# 416         1308         0       3  ...    8.0500   NaN         S
+# 417         1309         0       3  ...   22.3583   NaN         C
+# [418 rows x 12 columns]
+
+# print(df['Fare'])
+
+# print(df.columns)
+# Index(['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp',
+#        'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked'],
+#       dtype='object')
+
+# Using Pandas Visualization library
+# import matplotlib.pyplot as plt
+# df['Fare'].hist()
+# labels
+# plt.title("Distribution of Fare")
+# plt.xlabel("Fare")
+# plt.ylabel("Frequency")
+# plt.show() -> Image
+
+# Using matplotlib library
+# import matplotlib.pyplot as plt
+# plt.hist(df['Fare'])
+# plt.title("Distribution of Fare")
+# plt.xlabel("Fare")
+# plt.ylabel("Frequency")
+# plt.show()
+
+# Histogram using seaborn library
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+# sns.histplot(df['Fare'])
+# plt.title("Distribution of Fare")
+# plt.xlabel("Fare")
+# plt.ylabel("Frequency")
+# plt.show()
+
+# Displot using matplotlib library
+# import matplotlib.pyplot as plt
+# df['Fare'].plot.density()
+# plt.xlabel('Fare')
+# plt.ylabel('Density')
+# plt.title('Kernel Density Estimate of Fare')
+# plt.show()
+
+# Displot using seaborn library
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+# sns.displot(df, x='Fare', kde=True)
+# sns.set_style('darkgrid')
+# plt.title('Kernel Density Estimate of Age')
+# plt.xlabel('Age')
+# plt.ylabel('Density')
+# plt.show()
